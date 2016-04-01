@@ -411,10 +411,11 @@ JSONEditor.Validator = Class.extend({
       if(schema.required && Array.isArray(schema.required)) {
         for(i=0; i<schema.required.length; i++) {
           if(typeof value[schema.required[i]] === "undefined") {
+            var name = schema.properties[schema.required[i]].title;
             errors.push({
               path: path,
               property: 'required',
-              message: this.translate('error_required', [schema.required[i]])
+              message: this.translate('error_required', [name])
             });
           }
         }
