@@ -2918,7 +2918,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         self.editors[name].build();
         self.editors[name].postBuild();
       }
-      
+      dce6b5cb8db72af5944569a64bf3ce891ef7a8e0
       self.cached_editors[name] = self.editors[name];
     }
     
@@ -2958,7 +2958,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
     if(this.jsoneditor.options.remove_empty_properties || this.options.remove_empty_properties) {
       for(var i in result) {
         if(result.hasOwnProperty(i)) {
-          if(!result[i]) delete result[i];
+          if(result[i]===null) delete result[i];
         }
       }
     }
