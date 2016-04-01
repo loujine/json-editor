@@ -14,7 +14,7 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
         return null;
     }
     return this.value;
-  }
+  },
   setValue: function(value,initial,from_template) {
     var self = this;
 

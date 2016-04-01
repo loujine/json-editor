@@ -1211,11 +1211,10 @@ JSONEditor.Validator = Class.extend({
       if(schema.required && Array.isArray(schema.required)) {
         for(i=0; i<schema.required.length; i++) {
           if(typeof value[schema.required[i]] === "undefined") {
-            var name = schema.properties[schema.required[i]].title;
             errors.push({
               path: path,
               property: 'required',
-              message: this.translate('error_required', [name])
+              message: this.translate('error_required', [schema.required[i]])
             });
           }
         }
@@ -1812,17 +1811,23 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     if(!this.input) return;
     this.input.removeAttribute('name');
   },
+  getValue: function() {
+    if (this.value === "") {
+        return null;
+    }
+    return this.value;
+  },
   setValue: function(value,initial,from_template) {
     var self = this;
-    
+
     if(this.template && !from_template) {
       return;
     }
-    
+
     if(value === null || typeof value === 'undefined') value = "";
     else if(typeof value === "object") value = JSON.stringify(value);
     else if(typeof value !== "string") value = ""+value;
-    
+
     if(value === this.serialized) return;
 
     // Sanitize value before setting it
@@ -2257,10 +2262,10 @@ JSONEditor.defaults.editors.number = JSONEditor.defaults.editors.string.extend({
     return 2;
   },
   getValue: function() {
-        if (this.value === "") {
-            return null;
-        }
-        return this.value*1;
+    if (this.value === "") {
+        return null;
+    }
+    return this.value*1;
   }
 });
 
@@ -2922,6 +2927,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         self.editors[name].build();
         self.editors[name].postBuild();
       }
+      
       self.cached_editors[name] = self.editors[name];
     }
     
