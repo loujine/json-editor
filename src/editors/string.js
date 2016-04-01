@@ -9,17 +9,23 @@ JSONEditor.defaults.editors.string = JSONEditor.AbstractEditor.extend({
     if(!this.input) return;
     this.input.removeAttribute('name');
   },
+  getValue: function() {
+    if (this.value === "") {
+        return null;
+    }
+    return this.value;
+  }
   setValue: function(value,initial,from_template) {
     var self = this;
-    
+
     if(this.template && !from_template) {
       return;
     }
-    
+
     if(value === null || typeof value === 'undefined') value = "";
     else if(typeof value === "object") value = JSON.stringify(value);
     else if(typeof value !== "string") value = ""+value;
-    
+
     if(value === this.serialized) return;
 
     // Sanitize value before setting it
