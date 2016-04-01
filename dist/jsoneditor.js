@@ -2921,7 +2921,6 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         self.editors[name].build();
         self.editors[name].postBuild();
       }
-      dce6b5cb8db72af5944569a64bf3ce891ef7a8e0
       self.cached_editors[name] = self.editors[name];
     }
     
